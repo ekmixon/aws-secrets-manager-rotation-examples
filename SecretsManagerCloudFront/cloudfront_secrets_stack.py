@@ -24,8 +24,7 @@ class CloudfrontSecretsStack(core.Stack):
   def key_generator(self):
     size  = 16
     chars = string.ascii_uppercase + string.ascii_lowercase + string.digits
-    key   = ''.join(random.choice(chars) for _ in range(size))
-    return key
+    return ''.join(random.choice(chars) for _ in range(size))
 
   def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
     super().__init__(scope, id, **kwargs)
@@ -81,7 +80,8 @@ class CloudfrontSecretsStack(core.Stack):
     ##
     ## IAM Role used for Lambda function
     ##
-    secret_lambda_role_arn = "arn:aws:iam::" + core.Aws.ACCOUNT_ID + ":role/cloudfront-apikeys-rotator"
+    secret_lambda_role_arn = (
+        f"arn:aws:iam::{core.Aws.ACCOUNT_ID}:role/cloudfront-apikeys-rotator")
     secret_lambda_role     = iam.Role.from_role_arn(self, 
       id      ="ApiKeysRotatorIamRole", 
       role_arn=secret_lambda_role_arn,
